@@ -13,7 +13,6 @@ const personSechema = new schema({
     type: String,
     required: true,
     minlength: 8,
-    select: false,
   },
 })
 module.exports = Person = mongoose.model("Person", personSechema)

@@ -26,6 +26,16 @@ const loginRules = () => [
     max: 20,
   }),
 ]
+//New_OFFER_VALIDATOR
+const addOfferRules = () => [
+  body("jobDescription", "Job DEScription is required ").notEmpty(),
+  body("jobDescription", " desciption must contain 10 characters ").isLength({
+    min: 10,
+  }),
+  body("jobRate", " job rate is REQUIRED  ").notEmpty(),
+  body("dateToDoJOb", "u Should mention the date of the job").notEmpty(),
+]
+
 //MIDDLEWARE_VALIDATOR
 const validator = (req, res, next) => {
   const errors = validationResult(req)
@@ -34,4 +44,4 @@ const validator = (req, res, next) => {
   }
   next()
 }
-module.exports = { validator, registerRules, loginRules }
+module.exports = { validator, registerRules, loginRules, addOfferRules }
