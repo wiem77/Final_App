@@ -5,10 +5,10 @@ const personSechema = new schema({
   cin: { type: String, required: true, unique: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  dateOfBirth: { type: Date, required: true },
+  dateOfBirth: { type: Date },
   age: { type: Number, required: true, min: 18 },
   tel: { type: Number, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, unique: true },
   password: {
     type: String,
     required: true,
