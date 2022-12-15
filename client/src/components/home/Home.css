@@ -1,0 +1,45 @@
+.bg-img {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-image: url("C:\Users\DELL\Desktop\MERN_FINAL_APP\client\src\img\home-bg.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.container {
+  color: black;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+.welcome {
+  margin: 1cm;
+}
+.para {
+  padding-left: 1cm;
+}
+.welcome p {
+  padding-left: 0.5cm;
+}
+.welcome h1 {
+  display: flex;
+  align-items: flex-start;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+}
+
+.btns * {
+  margin: 10px;
+  padding: 10px;
+}

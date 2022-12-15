@@ -9,11 +9,6 @@ const jst = require("jsonwebtoken")
 //Validator
 const { validator, addOfferRules } = require("../middlewares/validator")
 
-//localhost:8000/offers/
-//TESTED_ROUTE
-router.get("/test", (req, res) => {
-  res.send("tested")
-})
 //@route http://localhost:8000/offers/addNewOffer
 //@desc Register_new_Offer
 //@access private
@@ -42,7 +37,7 @@ router.post("/addNewOffer", addOfferRules(), validator, async (req, res) => {
 //@route http://localhost:8000/offers/consultOffer/all
 //@desc_Consult_Offer
 //@access private
-router.get("/", (req, res) => {
+router.get("/offer", (req, res) => {
   Offer.find()
     .then((offer) => res.send(offer))
     .catch((err) => console.log(err))
@@ -50,7 +45,7 @@ router.get("/", (req, res) => {
 //@route http://localhost:8000/offers/consultOffer
 //@desc_Consult_Offer
 //@access private
-router.get("/:_id", (req, res) => {
+router.get("/offer/:_id", (req, res) => {
   const { _id } = req.params
   Offer.findOne({ _id })
     .then((offer) => res.send(offer))
@@ -58,15 +53,15 @@ router.get("/:_id", (req, res) => {
 })
 
 //delete Offer
-router.delete("/:_id", (req, res) => {
+router.delete("/delete/:_id", (req, res) => {
   const { _id } = req.params
   Offer.findOneAndDelete({ _id })
     .then((offer) => res.status(200).json({ msg: "Offer deleted", offer }))
     .catch((err) => console.log(err))
 })
 //http://localhost:8000/offers/editContact:_id
-//edit_Contact
-router.put("/:_id", (req, res) => {
+//edit_Offer
+router.put("/edit/:_id", (req, res) => {
   const { _id } = req.params
   const { jobDescription, jobRate, datOfPublish } = req.body
   Offer.findOneAndUpdate(
@@ -75,5 +70,11 @@ router.put("/:_id", (req, res) => {
   )
     .then((offer) => res.status(200).json({ msg: "Offer Updated", offer }))
     .catch((err) => console.log(err))
+})
+//@route /offer
+//@desc Register new user
+//@access Private
+router.get("/offer", isAuth, (req, res) => {
+  res.status(200).send({ offer: req.offer })
 })
 module.exports = router

@@ -47,11 +47,16 @@ router.post("/register", registerRules(), validator, async (req, res) => {
       person.password = hasdPassWord
       //save user
       await person.save()
-
-      res.status(200).json({ msg: "registed with success", person })
+      //signuser
+      const payload = {
+        id: person._id,
+      }
+      const token = await jst.sign(payload, process.env.SERCRETSTRING)
+      res.status(200).json({ msg: "registed with success", person, token })
     }
   } catch (error) {
     console.log(error)
+    res.status(500).json({ msg: "server erreur" })
   }
 })
 //@route http://localhost:8000/users/login
@@ -82,7 +87,7 @@ router.post("/login", async (req, res) => {
 //@route api/auth/person
 //@desc Register new user
 //@access Private
-// router.get("/api/auth/person", isAuth, (req, res) => {
-//   res.status(200).send({ person: req.person })
-// })
+router.get("/person", isAuth, (req, res) => {
+  res.status(200).send({ person: req.person })
+})
 module.exports = router

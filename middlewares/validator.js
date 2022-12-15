@@ -11,7 +11,7 @@ const registerRules = () => [
   body("tel", " tel is REQUIRED  ").isLength({
     min: 8,
   }),
-  body("email", " email is REQUIRED  ").notEmpty().isEmail(),
+  body("email", " email is REQUIRED  and must be Unique ").notEmpty().isEmail(),
   body("password", "password must conatin 8 charter").isLength({
     min: 8,
     max: 20,
