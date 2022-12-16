@@ -2,8 +2,7 @@ const express = require("express")
 const router = express.Router()
 //Offer_SCHEMA
 const Offer = require("../models/Offer")
-//BODY_Parser
-const bodyParser = require("body-parser")
+
 //JSToken
 const jst = require("jsonwebtoken")
 //Validator
@@ -13,10 +12,11 @@ const { validator, addOfferRules } = require("../middlewares/validator")
 //@desc Register_new_Offer
 //@access private
 router.post("/addNewOffer", addOfferRules(), validator, async (req, res) => {
-  const { jobDescription, jobRate, dateToDoJOb } = req.body
+  const { jobName, jobDescription, jobRate, dateToDoJOb, place } = req.body
   try {
     //Create_New_OFFER
     let offer = new Offer({
+      jobName,
       jobDescription,
       jobRate,
       dateToDoJOb,
@@ -37,44 +37,57 @@ router.post("/addNewOffer", addOfferRules(), validator, async (req, res) => {
 //@route http://localhost:8000/offers/consultOffer/all
 //@desc_Consult_Offer
 //@access private
-router.get("/offer", (req, res) => {
-  Offer.find()
-    .then((offer) => res.send(offer))
-    .catch((err) => console.log(err))
+router.get("/offer", async (req, res) => {
+  try {
+    const offers = await Offer.find()
+    res.json({ msg: "data fetched", offers })
+  } catch (error) {
+    console.log(error)
+  }
 })
+
 //@route http://localhost:8000/offers/consultOffer
 //@desc_Consult_Offer
 //@access private
-router.get("/offer/:_id", (req, res) => {
-  const { _id } = req.params
-  Offer.findOne({ _id })
-    .then((offer) => res.send(offer))
-    .catch((err) => console.log(err))
+router.get("/offer/:_id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const offer = await Offer.findOne({ _id: id })
+    res.json({ msg: "offer ", offer })
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 //delete Offer
-router.delete("/delete/:_id", (req, res) => {
-  const { _id } = req.params
-  Offer.findOneAndDelete({ _id })
-    .then((offer) => res.status(200).json({ msg: "Offer deleted", offer }))
-    .catch((err) => console.log(err))
+router.delete("/delete/:_id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const contact = await Offer.findOneAndDelete({ _id: id })
+    res.json({ msg: "Offer deleted", offer })
+  } catch (error) {
+    console.log(error)
+  }
 })
 //http://localhost:8000/offers/editContact:_id
 //edit_Offer
-router.put("/edit/:_id", (req, res) => {
+router.put("/edit/:_id", async (req, res) => {
   const { _id } = req.params
-  const { jobDescription, jobRate, datOfPublish } = req.body
-  Offer.findOneAndUpdate(
-    { _id },
-    { $set: { jobDescription, jobRate, datOfPublish } }
-  )
-    .then((offer) => res.status(200).json({ msg: "Offer Updated", offer }))
-    .catch((err) => console.log(err))
+  const { jobDescription, jobRate, datOfPublish, jobName, place } = req.body
+  try {
+    const offer = await Offer.findOneAndUpdate(
+      { _id },
+      { jobDescription, jobRate, datOfPublish, jobName, place }
+    )
+    res.json({ msg: "offer edited", offer })
+  } catch (error) {
+    console.log(error)
+  }
 })
 //@route /offer
 //@desc Register new user
 //@access Private
-router.get("/offer", isAuth, (req, res) => {
-  res.status(200).send({ offer: req.offer })
-})
+// router.get("/offer", isAuth, (req, res) => {
+//   res.status(200).send({ offer: req.offer })
+// })
 module.exports = router

@@ -1,10 +1,9 @@
 import "./Offers.css"
 import { GET_OFFERS } from "../../js/actions/AuthActions"
 import React from "react"
-import OffersCard from "./OffersCard"
-import { useDispatch } from "react-redux"
+import OfferList from "./OfferList"
+
 const Offers = () => {
-  const dispatch = useDispatch()
   return (
     <div className="cont">
       <div className="bg-img" />
@@ -15,7 +14,7 @@ const Offers = () => {
           Choose What Offer you want and just Call the Person how posted
         </div>
         <div>
-          <OffersCard />
+          <OfferList />
         </div>
       </div>
     </div>

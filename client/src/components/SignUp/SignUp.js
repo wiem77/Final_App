@@ -15,22 +15,16 @@ const SignUp = () => {
     mode: "all",
   })
   const dispatch = useDispatch()
-  const submit = ({
-    firstName,
-    registerlastName,
-    cin,
-    email,
-    tel,
-    password,
-  }) => {
+  const submit = ({ firstName, lastName, cin, email, tel, password, age }) => {
     dispatch(
       registerPerson({
         firstName,
-        registerlastName,
+        lastName,
         cin,
         email,
         tel,
         password,
+        age,
       })
     )
   }

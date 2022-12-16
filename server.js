@@ -1,5 +1,4 @@
 //REQUIRE_EXPRESS
-
 const express = require("express")
 const app = express()
 //REQUIRE_DOTENV
@@ -21,7 +20,7 @@ app.use((err, req, res, next) => {
   // process.exit(1)
 })
 //CREATE-PORT
-const port = process.env.PORT || 5000
+const port = 5000
 //LUNCH
 app.listen(port, (err) =>
   err ? console.log(err) : console.log(`the server is runnig on ${port}`)

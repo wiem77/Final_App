@@ -10,11 +10,12 @@ const Home = () => {
       <div className="welcome">
         <h1>Welcome!</h1>
         <p>
-          Ut otiosae omnes redierit redierit tribus Pompiliani cum quotquot cum
-          Romani ut licet licet suscipitur Pompiliani tribus ut et nulla domina
-          suffragiorum quotquot partes ubique Pompiliani omnes auctoritate et
-          terrarum Romani partes tamen ut set populique sint olim sint ubique et
-          et omnes sunt Romani cum certamina securitas patrum suscipitur.
+          One Search, Millions of Jobs. Here you can find the right fit. Our
+          website offers you access to a job board that has been thoroughly
+          screened to ensure each posting is the real deal, and an incredible
+          selection of flexible, part-time, and remote work opportunities. If
+          you’re tired of wading through muddy waters, unsure which jobs are the
+          real deal, PetitB should be your next stop..
         </p>
         <div className="para">
           Please sign in, or if you dont have an account you can create an

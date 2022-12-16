@@ -9,11 +9,11 @@ const registerRules = () => [
   // body("dateOfBirth", "date Of Birth is REQUIRED").isISO8601().toDate(),
   body("age", " age is REQUIRED").notEmpty(),
   body("tel", " tel is REQUIRED  ").isLength({
-    min: 8,
+    max: 8,
   }),
   body("email", " email is REQUIRED  and must be Unique ").notEmpty().isEmail(),
   body("password", "password must conatin 8 charter").isLength({
-    min: 8,
+    min: 6,
     max: 20,
   }),
 ]
@@ -21,10 +21,7 @@ const registerRules = () => [
 const loginRules = () => [
   body("email", " YouShould write you mail").notEmpty(),
   body("email", " Syntax Email invalid!!").isEmail,
-  body("password", "password must conatin 8 charter").isLength({
-    min: 8,
-    max: 20,
-  }),
+  body("password", "password required").notEmpty,
 ]
 //New_OFFER_VALIDATOR
 const addOfferRules = () => [
@@ -40,7 +37,11 @@ const addOfferRules = () => [
 const validator = (req, res, next) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
-    return res.status(400).send({ errors: errors.array() })
+    return res.status(400).send({
+      errors: errors.array().map((el) => ({
+        msg: el.msg,
+      })),
+    })
   }
   next()
 }

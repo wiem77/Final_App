@@ -29,7 +29,7 @@ export const Bars = styled(FaBars)`
   color: #fff;
   @media screen and (max-width: 768px) {
     display: block;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     transform: translate(-100%, 75%);

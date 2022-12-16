@@ -1,100 +1,85 @@
 import React from "react"
 import { useState } from "react"
-import { Modal, Button, Form } from "react-bootstrap"
+
 import { useForm } from "react-hook-form"
 import { loginPerson } from "../../js/actions/AuthActions"
 import { useDispatch } from "react-redux"
 
 // import "./Signin.css"
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  NavLink,
+} from "reactstrap"
 
 const Signin = () => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    mode: "all",
-  })
-  const dispatch = useDispatch()
-  const submit = ({
-    email,
+  const [modal, setModal] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-    password,
-  }) => {
-    dispatch(
-      loginPerson({
-        email,
-        password,
-      })
-    )
+  const toggle = () => {
+    setModal(!modal)
   }
-  console.log("errors", errors)
-  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const dispatch = useDispatch()
+
+  const handleLogin = () => {
+    dispatch(loginPerson({ email, password }))
+
+    setEmail("")
+    setPassword("")
+  }
+
   return (
-    <>
-      <div className="btn">
-        <Button variant="secondary" onClick={handleShow}>
-          {" "}
-          Sign IN!!
-        </Button>
-      </div>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Sign In !</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmit(submit)}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Welcome,back </Form.Label>
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                {...register("email", {
-                  required: "Email is required !!",
-                  pattern: {
-                    value:
-                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: "email must be valid",
-                  },
-                })}
+    <div style={{ padding: "0 15px" }}>
+      <NavLink onClick={toggle} href="#">
+        Login
+      </NavLink>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Login</ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup>
+              <Label for="email">Email</Label>
+              <Input
                 type="email"
+                value={email}
+                name="email"
+                id="email"
                 placeholder="email"
-                autoFocus
+                className="mb-3"
+                onChange={(e) => setEmail(e.target.value)}
               />
-              <p className="errors">{errors.email?.message}</p>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                {...register("password", {
-                  required: "password is required !!",
-                  pattern: {
-                    value:
-                      /^(?=.*[0-9])(?=.*[!@#$%^&*.,])[a-zA-Z0-9!@#$%^&*.,]{6,16}$/,
-                    message:
-                      "Password must at least Contain 6Characters ,One UpperCase,One LowerCase,One Number and one Special Case Character",
-                  },
-                })}
+              <Label for="password">Password</Label>
+              <Input
                 type="password"
-                placeholder="password"
-                autoFocus
+                value={password}
+                name="password"
+                id="password"
+                placeholder="Password"
+                className="mb-3"
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <p className="errors">{errors.password?.message}</p>
-            </Form.Group>
-            <Button variant="outline-success" type="submit">
-              {" "}
-              Register
-            </Button>{" "}
+              <Button
+                color="dark"
+                style={{ marginTop: "2rem" }}
+                block
+                onClick={handleLogin}
+              >
+                Login
+              </Button>
+            </FormGroup>
           </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-        </Modal.Footer>
+        </ModalBody>
       </Modal>
-    </>
+    </div>
   )
 }
+
 export default Signin

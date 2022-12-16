@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const bodyParser = require("body-parser")
+
 //require_bcrypte
 const bcrypt = require("bcrypt")
 //Require_Person_SCHEMA
@@ -20,8 +20,7 @@ const {
 //@desc Register_new_Person
 //@access public
 router.post("/register", registerRules(), validator, async (req, res) => {
-  const { cin, firstName, lastName, dateOfBirth, age, tel, email, password } =
-    req.body
+  const { cin, firstName, lastName, age, tel, email, password } = req.body
   try {
     //chechk exixtence users
     let person = await Person.findOne({ cin })
@@ -34,7 +33,6 @@ router.post("/register", registerRules(), validator, async (req, res) => {
         cin,
         firstName,
         lastName,
-        dateOfBirth,
         age,
         tel,
         email,
@@ -63,17 +61,21 @@ router.post("/register", registerRules(), validator, async (req, res) => {
 //@desc Login_Person
 //@access public
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body
   try {
+    const { email, password } = req.body
+    if (!email || !password) {
+      return res.status(400).send({ msg: "Please enter all fields" })
+    }
+
     let person = await Person.findOne({ email })
     if (!person) {
-      return res.status(400).send({ msg: "User not existe emails" })
+      return res.status(400).send({ msg: "You are not a user in petitB" })
     }
 
     //chechk pwd
     const isMatch = await bcrypt.compare(password, person.password)
     if (!isMatch) {
-      return res.status(400).send({ msg: "bad Credentials pwd" })
+      return res.status(400).send({ msg: "bad Credentials " })
     }
     const payload = {
       id: person._id,
@@ -82,6 +84,7 @@ router.post("/login", async (req, res) => {
     res.send({ msg: "logged with success", person, token })
   } catch (error) {
     res.status(500).json({ msg: "server erreur" })
+    console.log(error)
   }
 })
 //@route api/auth/person
