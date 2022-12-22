@@ -14,7 +14,7 @@ const Home = () => {
           website offers you access to a job board that has been thoroughly
           screened to ensure each posting is the real deal, and an incredible
           selection of flexible, part-time, and remote work opportunities. If
-          you’re tired of wading through muddy waters, unsure which jobs are the
+          youre tired of wading through muddy waters, unsure which jobs are the
           real deal, PetitB should be your next stop..
         </p>
         <div className="para">

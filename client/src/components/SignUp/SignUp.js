@@ -37,7 +37,6 @@ const SignUp = () => {
     <>
       <div className="btn">
         <Button variant="secondary" onClick={handleShow}>
-          {" "}
           Sign Up
         </Button>
       </div>

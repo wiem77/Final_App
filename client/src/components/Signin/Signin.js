@@ -1,11 +1,9 @@
 import React from "react"
 import { useState } from "react"
-
-import { useForm } from "react-hook-form"
 import { loginPerson } from "../../js/actions/AuthActions"
 import { useDispatch } from "react-redux"
 
-// import "./Signin.css"
+import "./Signin.css"
 import {
   Button,
   Modal,
@@ -37,10 +35,11 @@ const Signin = () => {
   }
 
   return (
-    <div style={{ padding: "0 15px" }}>
-      <NavLink onClick={toggle} href="#">
-        Login
-      </NavLink>
+    <div>
+      <Button className="btnsignin" variant="secondary" onClick={toggle}>
+        Sign in
+      </Button>
+
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Login</ModalHeader>
         <ModalBody>

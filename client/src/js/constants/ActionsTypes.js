@@ -1,9 +1,6 @@
 //PERSON_CONSTANTES
 export const { LOGIN_PERSON } = "LOGIN_PERSON"
 export const { REGISTER_PERSON } = "REGISTER_PERSON"
-export const { GET_AUTH_PERSON } = "GET_AUTH_PERSON"
-export const { USER_LOADING } = "USER_LOADING"
-export const { AUTH_ERRORS } = "AUTH_ERRORS"
 
 //OFFER_CONSTANTES
 export const { GET_OFFERS } = "GET_OFFERS"
